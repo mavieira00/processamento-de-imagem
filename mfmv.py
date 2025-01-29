@@ -210,3 +210,14 @@ def fechamento(imagem , mascara, n):
     dilatacaoF = dilatacao(imagem, mascara, n)
     fechamento = erosao(dilatacaoF, mascara, n)
     return fechamento
+
+def acharBuraco(imagem):
+    linha = len(imagem)
+    coluna = len(imagem[0])
+    
+    for i in range(1, linha):
+        for j in range(1, coluna):
+            if (imagem[i][j] == 0 and imagem[i-1][j] == 255 and  imagem[i][j-1] == 255):
+                return (i, j)
+    
+    return None

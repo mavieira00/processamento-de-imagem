@@ -4,7 +4,7 @@ Created on Tue Jan 21 15:09:29 2025
 
 @author: 18798221728
 """
-entrada = 'dila.jpg'
+entrada = 'homem.jpg'
 
 import cv2
 import numpy
@@ -64,12 +64,13 @@ mascara33 = numpy.array([[0, 1, 0],
 #-----------------------Aula 12: Extração de Fronteiras (Detecção de Contornos)--------------------------#
 #--------------------------------------------------------------------------------------------------------#
 
-# PretoBranco = mfmv.PBimg(cinza , 150)
-# complemento = mfmv.inverterPB(PretoBranco)
+PretoBranco = mfmv.PBimg(cinza , 150)
+complemento = mfmv.inverterPB(PretoBranco)
 
-# imagemErosionada = mfmv.erosao(PretoBranco, mascara33, 1)
-# fronteira = PretoBranco - imagemErosionada
+imagemErosionada = mfmv.erosao(PretoBranco, mascara33, 1)
+fronteira = PretoBranco - imagemErosionada
 
+cv2.imwrite("saida.jpg", fronteira)
 # cv2.imshow("imagem original", imagem)
 # cv2.imshow("complemento", complemento)
 # cv2.imshow("imagem preta e branca", PretoBranco)
@@ -82,7 +83,7 @@ mascara33 = numpy.array([[0, 1, 0],
 #---------------------------------Aula 12: Preenchimento de Buracos--------------------------------------#
 #--------------------------------------------------------------------------------------------------------#
 
-PretoBranco = mfmv.PBimg(cinza , 150)
+PretoBranco = mfmv.PBimg(fronteira , 150)
 
 posicao = mfmv.acharBuraco(PretoBranco)
 print("posicao inicial ", posicao)

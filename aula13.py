@@ -65,8 +65,7 @@ mascara33 = numpy.full((3, 3), 1)
 #-----------------------------Aula 13: Extração de Componentes Conectados--------------------------------#
 #--------------------------------------------------------------------------------------------------------#
 
-PretoBranco = mfmv.limit(imagem, histCinza)
-pb = mfmv.PBimg(cinza, 200)
+PretoBranco = mfmv.PBimg(cinza, 180)
 
 posicao = mfmv.acharBuraco(PretoBranco)
 print("posicao inicial ", posicao)
@@ -88,7 +87,5 @@ imagemFinal = X
    
 cv2.imshow("imagem original", imagem)
 cv2.imshow("imagem preta e branca", PretoBranco)
-cv2.imshow("imagem pb", pb)
-
 cv2.imshow("imagem final", imagemFinal)
 cv2.waitKey(0)
