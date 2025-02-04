@@ -5,34 +5,33 @@ Created on Tue Jan 28 15:27:44 2025
 @author: 18798221728
 """
 
-# entrada = 'ossos.jpg'
-entrada = 'jEsq.jpg'
-
 import cv2
 import numpy
 import mfmv
 
-imagem = cv2.imread(entrada)
-cinza = mfmv.tonsCinza(imagem)
-histCinza = mfmv.histograma(cinza, "grey")
-mfmv.plotGraf(histCinza, 'grey', "tons de cinza")  
+# entrada = 'ossos.jpg'
+# entrada = 'jEsq.jpg'
+# imagem = cv2.imread(entrada)
+# cinza = mfmv.tonsCinza(imagem)
+# histCinza = mfmv.histograma(cinza, "grey")
+# mfmv.plotGraf(histCinza, 'grey', "tons de cinza")  
 
-# matriz = numpy.array([
-#     [255, 255, 255, 255, 0, 0, 0],
-#     [255, 255, 255, 255, 0, 0, 0],
-#     [255, 255, 255, 255, 0, 0, 0],
-#     [255, 255, 255, 255, 255, 255, 255],
-#     [255, 255, 255, 255, 255, 255, 255],
-#     [255, 255, 255, 255, 255, 255, 255],
-#     [255, 255, 255, 255, 255, 255, 255]
-# ]) 
+matriz = numpy.array([
+    [255, 255, 255, 255, 0, 0, 0],
+    [255, 255, 255, 255, 0, 0, 0],
+    [255, 255, 255, 255, 0, 0, 0],
+    [255, 255, 255, 255, 255, 255, 255],
+    [255, 255, 255, 255, 255, 255, 255],
+    [255, 255, 255, 255, 255, 255, 255],
+    [255, 255, 255, 255, 255, 255, 255]
+]) 
 
-# # imagem = matriz.astype(numpy.uint8)
+cinza = imagem = matriz.astype(numpy.uint8)
 
 # matriz_redimensionada = cv2.resize(matriz, (70, 70), interpolation=cv2.INTER_NEAREST)
 
 # matriz_uint8 = matriz_redimensionada.astype(numpy.uint8)
-# imagem = matriz_uint8
+# cinza = imagem = matriz_uint8
 
 
 # matriz = numpy.zeros((10,10), dtype=int) #cria uma matriz toda preta
@@ -122,8 +121,14 @@ def esqueletizacao(imagem , e_estruturante, k):
     
     while True:
         erosaok = mfmv.erosao(imagem, e_estruturante, k)
+        print("erosao k")
+        print(erosaok)
         aberturak = mfmv.abertura(erosaok, e_estruturante, 1)
+        print("abertura k")
+        print(aberturak)
         diferencak = erosaok - aberturak 
+        print("diferença k")
+        print(diferencak)
         
         caveira = numpy.maximum(caveira, diferencak)
         
