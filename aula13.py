@@ -6,32 +6,33 @@ Created on Tue Jan 28 15:27:44 2025
 """
 
 # entrada = 'ossos.jpg'
+entrada = 'jEsq.jpg'
 
 import cv2
 import numpy
 import mfmv
 
-# imagem = cv2.imread(entrada)
-# cinza = mfmv.tonsCinza(imagem)
-# histCinza = mfmv.histograma(cinza, "grey")
-# mfmv.plotGraf(histCinza, 'grey', "tons de cinza")  
+imagem = cv2.imread(entrada)
+cinza = mfmv.tonsCinza(imagem)
+histCinza = mfmv.histograma(cinza, "grey")
+mfmv.plotGraf(histCinza, 'grey', "tons de cinza")  
 
-matriz = numpy.array([
-    [255, 255, 255, 255, 0, 0, 0],
-    [255, 255, 255, 255, 0, 0, 0],
-    [255, 255, 255, 255, 0, 0, 0],
-    [255, 255, 255, 255, 255, 255, 255],
-    [255, 255, 255, 255, 255, 255, 255],
-    [255, 255, 255, 255, 255, 255, 255],
-    [255, 255, 255, 255, 255, 255, 255]
-]) 
+# matriz = numpy.array([
+#     [255, 255, 255, 255, 0, 0, 0],
+#     [255, 255, 255, 255, 0, 0, 0],
+#     [255, 255, 255, 255, 0, 0, 0],
+#     [255, 255, 255, 255, 255, 255, 255],
+#     [255, 255, 255, 255, 255, 255, 255],
+#     [255, 255, 255, 255, 255, 255, 255],
+#     [255, 255, 255, 255, 255, 255, 255]
+# ]) 
 
-imagemOriginal = matriz.astype(numpy.uint8)
+# # imagem = matriz.astype(numpy.uint8)
 
-matriz_redimensionada = cv2.resize(matriz, (70, 70), interpolation=cv2.INTER_NEAREST)
+# matriz_redimensionada = cv2.resize(matriz, (70, 70), interpolation=cv2.INTER_NEAREST)
 
-matriz_uint8 = matriz_redimensionada.astype(numpy.uint8)
-imagem = matriz_uint8
+# matriz_uint8 = matriz_redimensionada.astype(numpy.uint8)
+# imagem = matriz_uint8
 
 
 # matriz = numpy.zeros((10,10), dtype=int) #cria uma matriz toda preta
@@ -111,7 +112,7 @@ mascara33 = numpy.array([[0, 1, 0],
 #--------------------------------------Aula 13: Esqueletização-------------------------------------------#
 #--------------------------------------------------------------------------------------------------------#
 
-PretoBranco = mfmv.PBimg(imagem, 150)
+PretoBranco = mfmv.PBimg(cinza, 150)
 
 def esqueletizacao(imagem , e_estruturante, k):
     caveira = numpy.zeros((imagem.shape[0] , imagem.shape[1]), dtype=imagem.dtype)
@@ -130,16 +131,16 @@ def esqueletizacao(imagem , e_estruturante, k):
             break
         
         k = k + 1
-        
     return caveira
+
 
 caveira = esqueletizacao(PretoBranco, mascara33, 1)
 inversao = mfmv.inverterPB(PretoBranco)
-sobrepor = numpy.maximum(caveira, inversao) 
+final = numpy.maximum(caveira, inversao)
 
 cv2.imshow("imagem original", imagem)
-cv2.imshow("imagem esqueletica", esqueleto)
-cv2.imshow("imagem final", sobrepor)
+cv2.imshow("imagem do esqueleto", caveira)
+cv2.imshow("imagem final", final)
 cv2.waitKey(0) 
     
 
